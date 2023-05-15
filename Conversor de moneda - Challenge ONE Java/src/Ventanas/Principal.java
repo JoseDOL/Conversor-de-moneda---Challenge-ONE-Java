@@ -12,25 +12,26 @@ import javax.swing.JOptionPane;
  */
 public class Principal extends javax.swing.JFrame {
 
-    
     static public String[][] datos = {
-            {"1","- Convertir Quetzal a Dólar", "0.13"},
-{"2","- Convertir Quetzal a Euros", "0.12"},
-{"3","- Convertir Quetzal a Libras Esterlinas", "0.11"},
-{"4","- Convertir Quetzal a Yen Japonés", "17.47"},
-{"5","- Convertir Quetzal a Won sul-coreano ", "0.0059"},
-{"6","- Convertir de Dólar a Quetzal","7.81"},
-{"7","- Convertir de Euros a Quetzal","8.23"},
-{"8","- Convertir de Libras Esterlinas a Quetzal","9.33"},
-{"9","- Convertir de Yen Japonés a Quetzal","0.057"},
-{"10","- Convertir de Won sul-coreano a Quetzal","0.0059"}
+        {"1", "- Convertir Quetzal a Dolar", "0.13"},
+        {"2", "- Convertir Quetzal a Euros", "0.12"},
+        {"3", "- Convertir Quetzal a Libras Esterlinas", "0.11"},
+        {"4", "- Convertir Quetzal a Yen Japones", "17.47"},
+        {"5", "- Convertir Quetzal a Won sul-coreano ", "0.0059"},
+        {"6", "- Convertir de Dolar a Quetzal", "7.81"},
+        {"7", "- Convertir de Euros a Quetzal", "8.23"},
+        {"8", "- Convertir de Libras Esterlinas a Quetzal", "9.33"},
+        {"9", "- Convertir de Yen Japones a Quetzal", "0.057"},
+        {"10", "- Convertir de Won sul-coreano a Quetzal", "0.0059"}
     };
- 
+
+    double vConversion = 0;
+    String vStringC = "";
     static public Object[][] conver = {
         {1, "Moneda"},
         {2, "Temperatura"}
     };
-   
+
     /**
      * Creates new form Principal
      */
@@ -38,6 +39,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         for (Object[] dato : conver) {
             cbTipo.addItem(dato[1].toString());
+            vConvertir.setEnabled(false);
         }
     }
 
@@ -53,6 +55,8 @@ public class Principal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         cbTipo = new javax.swing.JComboBox<>();
         cbConver = new javax.swing.JComboBox<>();
+        vConvertir = new javax.swing.JTextField();
+        btnConver = new javax.swing.JButton();
         VarMenu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -72,15 +76,46 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        cbConver.setBackground(new java.awt.Color(102, 102, 102));
+        cbConver.setForeground(new java.awt.Color(255, 255, 255));
+        cbConver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbConverActionPerformed(evt);
+            }
+        });
+
+        vConvertir.setBackground(new java.awt.Color(153, 153, 153));
+        vConvertir.setForeground(new java.awt.Color(255, 255, 255));
+        vConvertir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                vConvertirKeyTyped(evt);
+            }
+        });
+
+        btnConver.setText("Convertir");
+        btnConver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cbTipo, 0, 559, Short.MAX_VALUE)
-                    .addComponent(cbConver, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbTipo, 0, 559, Short.MAX_VALUE)
+                            .addComponent(cbConver, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(175, 175, 175)
+                        .addComponent(btnConver, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(vConvertir, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -90,7 +125,11 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(cbConver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(220, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(vConvertir, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(btnConver)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         jMenu1.setText("ARCHIVO");
@@ -132,33 +171,74 @@ public class Principal extends javax.swing.JFrame {
     private void cbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoActionPerformed
         // TODO add your handling code here:
         String val = cbTipo.getSelectedItem().toString();
-        int val2=RValor( val);
+        int val2 = RValor(val);
         switch (val2) {
             case 0:
-                    JOptionPane.showMessageDialog(null, "Seleccione Una Conversion");
+                JOptionPane.showMessageDialog(null, "Seleccione Una Conversion");
                 break;
             case 1:
-                 for (Object[] dato : datos) {
-                cbConver.addItem(dato[1].toString());
-        }
+                for (Object[] dato : datos) {
+                    cbConver.addItem(dato[1].toString());
+                }
                 break;
-             case 2:
-                
+            case 2:
+
                 break;
             default:
                 cbConver.removeAllItems();
         }
-        
+
     }//GEN-LAST:event_cbTipoActionPerformed
 
-    private int RValor(String val){
-        for (Object[] dato : conver) {
-            if (dato[1].toString().equals(val)) {
-                return Integer.parseInt(dato[0].toString()); 
+    private void cbConverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbConverActionPerformed
+        // TODO add your handling code here:
+        String val = cbConver.getSelectedItem().toString();
+        vStringC = val;
+        vConversion = Rconver(val);
+        vConvertir.setEnabled(true);
+    }//GEN-LAST:event_cbConverActionPerformed
+
+    private void vConvertirKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vConvertirKeyTyped
+        // TODO add your handling code here:
+        int key = evt.getKeyChar();
+        boolean numeros = key >= 48 && key <= 57 || key == 46;
+
+        if (!numeros) {
+            evt.consume();
+        }
+
+    }//GEN-LAST:event_vConvertirKeyTyped
+
+    private void btnConverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConverActionPerformed
+        // TODO add your handling code here:
+        if (!vConvertir.getText().equals("")) {
+            double resultado = Double.parseDouble(vConvertir.getText()) * vConversion;
+            JOptionPane.showMessageDialog(null, vStringC + " \n Su resultado es: " + resultado);
+            vConvertir.setText("");
+        } else {
+             JOptionPane.showMessageDialog(null, "Debe Ingresar Cantidad a Convertir ");
+        }
+
+    }//GEN-LAST:event_btnConverActionPerformed
+
+    private double Rconver(String val) {
+        for (String[] dato : datos) {
+            if (dato[1].equals(val)) {
+                return Double.parseDouble(dato[2]);
             }
         }
         return -1;
     }
+
+    private int RValor(String val) {
+        for (Object[] dato : conver) {
+            if (dato[1].toString().equals(val)) {
+                return Integer.parseInt(dato[0].toString());
+            }
+        }
+        return -1;
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -196,10 +276,12 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar VarMenu;
+    private javax.swing.JButton btnConver;
     private javax.swing.JComboBox<String> cbConver;
     private javax.swing.JComboBox<String> cbTipo;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField vConvertir;
     // End of variables declaration//GEN-END:variables
 }
